@@ -1,0 +1,31 @@
+{
+  "manifest_version": 3,
+  "name": "Referral Link Inserter",
+  "version": "1.0",
+  "description": "Inserts referral links into supported websites.",
+  "permissions": [
+    "storage",
+    "scripting",
+    "webNavigation",
+    "cookies"
+  ],
+  "icons": {
+    "16": "favicon-16x16.png",
+    "32": "favicon-32x32.png",
+    "64": "favicon-64x64.png",
+    "128": "favicon-128x128.png",
+    "256": "favicon-256x256.png"
+  },
+  "host_permissions": [
+    "*://*.aliexpress.com/*",
+    "*://*.amazon.de/*",
+    "*://amazon.de/*"
+  ],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  }
+}
