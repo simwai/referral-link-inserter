@@ -6,8 +6,7 @@
   "permissions": [
     "storage",
     "scripting",
-    "webNavigation",
-    "cookies"
+    "webNavigation"
   ],
   "icons": {
     "16": "favicon-16x16.png",
