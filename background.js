@@ -79,30 +79,12 @@ function redirectUser(tabId, url) {
   chrome.tabs.update(tabId, { url });
 }
 
-// Call this function before modifying the URL to remove existing affiliate cookies
-function removeAffiliateCookies() {
-  chrome.cookies.getAll({}, (cookies) => {
-    const affiliateDomains = ['amazon.de', 'aliexpress.com']; // Add more domains if needed
-
-    cookies.forEach((cookie) => {
-      const domain = getDomainFromCookie(cookie);
-      if (affiliateDomains.includes(domain)) {
-        chrome.cookies.remove({
-          url: `https://${domain}${cookie.path}`,
-          name: cookie.name
-        });
-      }
-    });
-  });
-}
 
 function getDomainFromCookie(cookie) {
   const domainParts = cookie.domain.split('.');
   return domainParts.slice(-2).join('.');
 }
 
-// Call removeAffiliateCookies before navigating
 chrome.webNavigation.onBeforeNavigate.addListener((details) => {
-  removeAffiliateCookies();
   handleNavigation(details);
 }, { url: websitesData });
