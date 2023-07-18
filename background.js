@@ -1,47 +1,52 @@
 const websitesData = [
-	{hostSuffix: 'amazon.de', pathPrefix: '/gp/product/'},
-	{hostSuffix: 'amazon.de', pathPrefix: '/dp/'},
+	{hostSuffix: 'amazon.de'},
+	{hostSuffix: 'amazon.de'},
 	{hostSuffix: 'de.aliexpress.com'},
 ];
 
-chrome.webNavigation.onBeforeNavigate.addListener(handleNavigation, {
-	url: websitesData,
-});
-
 async function handleNavigation(details) {
+	console.log('Handling navigation')
+
 	const websites = websitesData.map(x => x.hostSuffix);
-	const currentWebsite = new URL(details.url).hostname;
+	const currentWebsite = new URL(details.url).hostname.replace(/^(www\.)/, '');
 
 	if (currentWebsite && websites.includes(currentWebsite)) {
 		console.log('Generating affiliate link URL');
 		const websiteKey = currentWebsite.includes('amazon') ? 'amazon' : (currentWebsite.includes('aliexpress') ? 'aliexpress' : '');
-		const affiliateID = await getAffiliateIDForWebsite(websiteKey);
-		if (affiliateID) {
-			const modifiedURL = generateAffiliateLink(details.url, affiliateID, websiteKey);
+		let affiliateId = null
+
+		try {
+			affiliateId = await getAffiliateIdForWebsite(websiteKey)
+		} catch (error) {
+			return console.error('Failed to get chrome storage. Refresh page.\n', error)
+		}
+		
+		if (affiliateId) {
+			const modifiedURL = generateAffiliateLink(details.url, affiliateId, websiteKey);
 			if (modifiedURL !== details.url) {
-				console.log('Modded URL:', modifiedURL);
+				console.log('Modded URL: ', modifiedURL);
 				redirectUser(details.tabId, modifiedURL);
 			}
 		}
 	}
 }
 
-function getAffiliateIDForWebsite(websiteKey) {
+function getAffiliateIdForWebsite(websiteKey) {
 	return new Promise(resolve => {
 		chrome.storage.sync.get(`${websiteKey}AffiliateId`, result => {
-			const affiliateID = result[`${websiteKey}AffiliateId`] || null;
-			resolve(affiliateID);
+			const affiliateId = result[`${websiteKey}AffiliateId`] || null;
+			resolve(affiliateId);
 		});
 	});
 }
 
-function generateAffiliateLink(url, affiliateID, websiteKey) {
+function generateAffiliateLink(url, affiliateId, websiteKey) {
 	let modifiedURL = removeAffiliateParameters(url);
 
 	if (websiteKey === 'amazon') {
-		modifiedURL = insertAffiliateID(modifiedURL, affiliateID);
+		modifiedURL = insertAffiliateId(modifiedURL, affiliateId);
 	} else if (websiteKey === 'aliexpress') {
-		modifiedURL = generateAliExpressAffiliateLink(modifiedURL, affiliateID);
+		modifiedURL = generateAliExpressAffiliateLink(modifiedURL, affiliateId);
 	}
 
 	return modifiedURL;
@@ -51,7 +56,6 @@ function removeAffiliateParameters(url) {
 	const baseURL = new URL(url);
 	const parameters = new URLSearchParams(baseURL.search);
 
-	// Remove existing affiliate-related parameters
 	parameters.delete('tag');
 	parameters.delete('aff_id');
 
@@ -59,18 +63,18 @@ function removeAffiliateParameters(url) {
 	return baseURL.href;
 }
 
-function insertAffiliateID(url, affiliateID) {
+function insertAffiliateId(url, affiliateId) {
 	const baseURL = new URL(url);
 	const parameters = new URLSearchParams(baseURL.search);
-	parameters.set('tag', affiliateID);
+	parameters.set('tag', affiliateId);
 	baseURL.search = parameters.toString();
 	return baseURL.href;
 }
 
-function generateAliExpressAffiliateLink(url, affiliateID) {
+function generateAliExpressAffiliateLink(url, affiliateId) {
 	const baseURL = new URL(url);
 	const parameters = new URLSearchParams(baseURL.search);
-	parameters.set('aff_id', affiliateID);
+	parameters.set('aff_id', affiliateId);
 	baseURL.search = parameters.toString();
 	return baseURL.href;
 }
@@ -79,11 +83,6 @@ function redirectUser(tabId, url) {
 	chrome.tabs.update(tabId, {url});
 }
 
-function getDomainFromCookie(cookie) {
-	const domainParts = cookie.domain.split('.');
-	return domainParts.slice(-2).join('.');
-}
-
-chrome.webNavigation.onBeforeNavigate.addListener(details => {
-	handleNavigation(details);
+chrome.webNavigation.onBeforeNavigate.addListener(async details => {
+	await handleNavigation(details);
 }, {url: websitesData});
