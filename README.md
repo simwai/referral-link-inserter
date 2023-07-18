@@ -21,8 +21,8 @@ or
 2. Visit product pages on Amazon or AliEpxress
 3. 💡 The extension will automatically insert your affiliate ID!
 You'll start earning commissions on your referrals. 🤑
-<br/><br/>
-Suggestion: You can use the tag of your friend and reverted BOOM you both earn (theoretically!) free money.
+
+<i>Suggestion: You can use the tag of your friend and reverted BOOM you both earn (theoretically!) free money.</i>
 <br/><br/>
 ### ⚙️ Configuration
 The extension options page allows configuring your affiliate IDs for each supported site.
