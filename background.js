@@ -5,7 +5,7 @@ const websitesData = [
 ];
 
 async function handleNavigation(details) {
-	console.log('Handling navigation')
+	console.log('Handling navigation');
 
 	const websites = websitesData.map(x => x.hostSuffix);
 	const currentWebsite = new URL(details.url).hostname.replace(/^(www\.)/, '');
@@ -13,18 +13,18 @@ async function handleNavigation(details) {
 	if (currentWebsite && websites.includes(currentWebsite)) {
 		console.log('Generating affiliate link URL');
 		const websiteKey = currentWebsite.includes('amazon') ? 'amazon' : (currentWebsite.includes('aliexpress') ? 'aliexpress' : '');
-		let affiliateId = null
+		let affiliateId = null;
 
 		try {
-			affiliateId = await getAffiliateIdForWebsite(websiteKey)
+			affiliateId = await getAffiliateIdForWebsite(websiteKey);
 		} catch (error) {
-			return console.error('Failed to get chrome storage. Refresh page.\n', error)
+			return console.error('Failed to get chrome storage. Refresh page.\n', error);
 		}
-		
+
 		if (affiliateId) {
 			const modifiedURL = generateAffiliateLink(details.url, affiliateId, websiteKey);
 			if (modifiedURL !== details.url) {
-				console.log('Modded URL: ', modifiedURL);
+				console.log('Modded URL:', modifiedURL);
 				redirectUser(details.tabId, modifiedURL);
 			}
 		}
