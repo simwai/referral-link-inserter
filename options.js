@@ -12,14 +12,7 @@ function saveOptions() {
 		{
 			amazonAffiliateId,
 			aliexpressAffiliateId,
-		},
-		() => {
-			const status = document.querySelector('#status');
-			status.textContent = 'Options saved.';
-			setTimeout(() => {
-				status.textContent = '';
-			}, 1500);
-		},
+		}
 	);
 }
 

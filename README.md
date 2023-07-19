@@ -2,8 +2,7 @@
 ![License](https://img.shields.io/badge/license-MIT-purple.svg )
 ![Chrome Version](https://img.shields.io/badge/chrome->=76-purple.svg)
 
-This Chrome extension inserts referral links when visiting supported shopping sites like Amazon and AliExpress.<br/><br/>
-<i>Note: Only Amazon DE and AliExpress are supported at the moment.</i><br/><br/>
+This Chrome extension inserts referral links when visiting Amazon or AliExpress.<br/><br/>
 
 ### 🛠 Installation
 To install the extension:
@@ -21,8 +20,9 @@ or
 2. Visit product pages on Amazon or AliEpxress
 3. 💡 The extension will automatically insert your affiliate ID!
 You'll start earning commissions on your referrals. 🤑
-<br/><br/>
-Suggestion: You can use the tag of your friend and reverted BOOM you both earn (theoretically!) free money.
+
+
+<i>Suggestion: You can use the tag of your friend and reverted BOOM you both earn (theoretically!) free money.</i>
 <br/><br/>
 ### ⚙️ Configuration
 The extension options page allows configuring your affiliate IDs for each supported site.
@@ -35,7 +35,7 @@ or<br/>
 - Go to chrome://extensions and click "Options"
 <br/><br/>
 ### 💡 TODO
-[] Add more supported domains of Amazon
+[] Add unit tests
 <br/><br/>
 ### 🤝 Contributing
 Pull requests are welcome! Feel free to open issues for any bugs or ideas.
