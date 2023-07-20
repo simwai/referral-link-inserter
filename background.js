@@ -49,7 +49,7 @@ async function handleNavigation(details) {
 	const websites = websitesData.map(x => x.hostSuffix);
 	const currentWebsite = new URL(details.url).hostname.replace(/^(www\.)/, '').replace(/^\./, ''); ;
 
-	if (currentWebsite && websites.includes(currentWebsite)) {
+	if (currentWebsite && websites.includes(currentWebsite) && !currentWebsite.includes('/ap/signin')) {
 		console.log('Generating affiliate link URL');
 		const websiteKey = currentWebsite.includes('amazon') ? 'amazon' : (currentWebsite.includes('aliexpress') ? 'aliexpress' : '');
 		let affiliateId = null;
