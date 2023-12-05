@@ -47,15 +47,16 @@ async function handleNavigation(details) {
 	console.log('Handling navigation');
 
 	const websites = websitesData.map(x => x.hostSuffix);
-	const currentWebsite = new URL(details.url).hostname.replace(/^(www\.)/, '').replace(/^\./, ''); ;
+	const currentWebsite = new URL(details.url).hostname.replace(/^(www\.)/, '').replace(/^\./, '');
 
 	if (currentWebsite && websites.includes(currentWebsite) && !currentWebsite.includes('/ap/signin')) {
-		console.log('Generating affiliate link URL');
+		console.log('Generating affiliate URL...');
 		const websiteKey = currentWebsite.includes('amazon') ? 'amazon' : (currentWebsite.includes('aliexpress') ? 'aliexpress' : '');
 		let affiliateId = null;
 
 		try {
 			affiliateId = await getAffiliateIdForWebsite(websiteKey);
+      console.log('Found affiliate ID in LocalStorage: ' + affiliateId);
 		} catch (error) {
 			return console.error('Failed to get chrome storage. Refresh page.\n', error);
 		}
@@ -71,20 +72,25 @@ async function handleNavigation(details) {
 }
 
 function getAffiliateIdForWebsite(websiteKey) {
-	return new Promise(resolve => {
-		chrome.storage.sync.get(`${websiteKey}AffiliateId`, result => {
-			const affiliateId = result[`${websiteKey}AffiliateId`] || null;
-			resolve(affiliateId);
-		});
+	return new Promise((resolve, reject) => {
+    try {
+      chrome.storage.sync.get(`${websiteKey}AffiliateId`, result => {
+        const affiliateId = result[`${websiteKey}AffiliateId`] || null;
+        resolve(affiliateId);
+      });
+    } catch (error) {
+      reject(error);
+    }
 	});
 }
 
 function generateAffiliateLink(url, affiliateId, websiteKey) {
-	let modifiedURL = removeAffiliateParameters(url);
+	let modifiedURL = url;
 
 	if (websiteKey === 'amazon') {
-		modifiedURL = insertAffiliateId(modifiedURL, affiliateId);
+		modifiedURL = generateAmazonAffiliateLink(modifiedURL, affiliateId);
 	} else if (websiteKey === 'aliexpress') {
+    removeAffiliateParameters(url);
 		modifiedURL = generateAliExpressAffiliateLink(modifiedURL, affiliateId);
 	}
 
@@ -95,19 +101,25 @@ function removeAffiliateParameters(url) {
 	const baseURL = new URL(url);
 	const parameters = new URLSearchParams(baseURL.search);
 
-	parameters.delete('tag');
 	parameters.delete('aff_id');
 
 	baseURL.search = parameters.toString();
 	return baseURL.href;
 }
 
-function insertAffiliateId(url, affiliateId) {
+function generateAmazonAffiliateLink(url, affiliateId) {
 	const baseURL = new URL(url);
-	const parameters = new URLSearchParams(baseURL.search);
-	parameters.set('tag', affiliateId);
-	baseURL.search = parameters.toString();
-	return baseURL.href;
+  const dpMatch = baseURL.pathname.match(/(.*)\/dp\/([A-Z0-9]{10})/g);
+  if (dpMatch?.[0]) {
+      // Rebuild the URL with the '/dp/[ASIN]' pattern
+      baseURL.pathname = dpMatch[0] + '/ref=nosim';
+      const parameters = new URLSearchParams();
+      parameters.set('tag', affiliateId);
+      baseURL.search = parameters.toString();
+      return baseURL.href;
+  } else {
+      return url;
+  }
 }
 
 function generateAliExpressAffiliateLink(url, affiliateId) {
