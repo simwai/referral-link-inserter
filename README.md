@@ -36,9 +36,10 @@ or<br/>
 <br/><br/>
 ### 💡 TODO
 [] Add unit tests
+[] Add Firefox support
 <br/><br/>
 ### 🤝 Contributing
 Pull requests are welcome! Feel free to open issues for any bugs or ideas.
-
+<br/><br/>
 ### 📄 License
 This project is licensed under the MIT License - see [LICENSE.md](LICENSE.md) for details.
