@@ -35,7 +35,7 @@ or<br/>
 - Go to chrome://extensions and click "Options"
 <br/><br/>
 ### 💡 TODO
-[] Add unit tests
+[] Add unit tests <br/>
 [] Add Firefox support
 <br/><br/>
 ### 🤝 Contributing
