@@ -1,4 +1,5 @@
 const websitesData = [
+  {hostSuffix: 'amzn.com'},
 	{hostSuffix: 'amazon.de'},
 	{hostSuffix: 'amazon.com'},
 	{hostSuffix: 'amazon.co.uk'},
@@ -47,11 +48,12 @@ async function handleNavigation(details) {
 	console.log('Handling navigation');
 
 	const websites = websitesData.map(x => x.hostSuffix);
-	const currentWebsite = new URL(details.url).hostname.replace(/^(www\.)/, '').replace(/^\./, '');
+	const currentWebsite = new URL(details.url)
+  currentWebsite.hostname = currentWebsite.hostname.replace(/(www\.)/, '')
 
-	if (currentWebsite && websites.includes(currentWebsite) && !currentWebsite.includes('/ap/signin')) {
+	if (websites.find(item => item === currentWebsite?.host) && !currentWebsite.href.includes('/ap/signin')) {
 		console.log('Generating affiliate URL...');
-		const websiteKey = currentWebsite.includes('amazon') ? 'amazon' : (currentWebsite.includes('aliexpress') ? 'aliexpress' : '');
+		const websiteKey = currentWebsite.href.includes('amazon') ? 'amazon' : (currentWebsite.href.includes('aliexpress') ? 'aliexpress' : '');
 		let affiliateId = null;
 
 		try {
@@ -98,36 +100,39 @@ function generateAffiliateLink(url, affiliateId, websiteKey) {
 }
 
 function removeAffiliateParameters(url) {
-	const baseURL = new URL(url);
-	const parameters = new URLSearchParams(baseURL.search);
+	const baseUrl = new URL(url);
+	const parameters = new URLSearchParams(baseUrl.search);
 
 	parameters.delete('aff_id');
 
-	baseURL.search = parameters.toString();
-	return baseURL.href;
+	baseUrl.search = parameters.toString();
+	return baseUrl.href;
 }
 
 function generateAmazonAffiliateLink(url, affiliateId) {
-	const baseURL = new URL(url);
-  const dpMatch = baseURL.pathname.match(/(.*)\/dp\/([A-Z0-9]{10})/g);
-  if (dpMatch?.[0]) {
-      // Rebuild the URL with the '/dp/[ASIN]' pattern
-      baseURL.pathname = dpMatch[0] + '/ref=nosim';
-      const parameters = new URLSearchParams();
+  const baseUrl = new URL(url);
+  const dpMatch = baseUrl.pathname.match(/(\/dp\/|\/gp\/product\/|\/gp\/aw\/d\/|\/gp\/offer-listing\/|amzn\.com\/)([A-Z0-9]{10})/i);
+  if (dpMatch) {
+      baseUrl.pathname = dpMatch[0];
+      baseUrl.searchParams.delete('ref')
+      const parameters = new URLSearchParams(baseUrl.search);
       parameters.set('tag', affiliateId);
-      baseURL.search = parameters.toString();
-      return baseURL.href;
+      if (!baseUrl.pathname.includes('/ref=nosim')) {
+          baseUrl.pathname += 'ref=nosim';
+      }
+      baseUrl.search = parameters.toString();
+      return baseUrl.href;
   } else {
       return url;
   }
 }
 
 function generateAliExpressAffiliateLink(url, affiliateId) {
-	const baseURL = new URL(url);
-	const parameters = new URLSearchParams(baseURL.search);
+	const baseUrl = new URL(url);
+	const parameters = new URLSearchParams(baseUrl.search);
 	parameters.set('aff_id', affiliateId);
-	baseURL.search = parameters.toString();
-	return baseURL.href;
+	baseUrl.search = parameters.toString();
+	return baseUrl.href;
 }
 
 function redirectUser(tabId, url) {
