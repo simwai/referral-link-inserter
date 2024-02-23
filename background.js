@@ -58,7 +58,10 @@ async function handleNavigation(details) {
 
 		try {
 			affiliateId = await getAffiliateIdForWebsite(websiteKey);
-      console.log('Found affiliate ID in LocalStorage: ' + affiliateId);
+      if (affiliateId)
+        console.log('Found affiliate ID in LocalStorage: ' + affiliateId);
+      else
+        console.info('Found no set affiliate ID')
 		} catch (error) {
 			return console.error('Failed to get chrome storage. Refresh page.\n', error);
 		}
@@ -111,16 +114,13 @@ function removeAffiliateParameters(url) {
 
 function generateAmazonAffiliateLink(url, affiliateId) {
   const baseUrl = new URL(url);
-  const dpMatch = baseUrl.pathname.match(/(\/dp\/|\/gp\/product\/|\/gp\/aw\/d\/|\/gp\/offer-listing\/|amzn\.com\/)([A-Z0-9]{10})/i);
+  const dpMatch = baseUrl.pathname.match(/(.*)(\/dp\/|\/gp\/product\/|\/gp\/aw\/d\/|\/gp\/offer-listing\/|amzn\.com\/)([A-Z0-9]{10})(.*)/i);
   if (dpMatch) {
-      baseUrl.pathname = dpMatch[0];
-      baseUrl.searchParams.delete('ref')
-      const parameters = new URLSearchParams(baseUrl.search);
-      parameters.set('tag', affiliateId);
       if (!baseUrl.pathname.includes('/ref=nosim')) {
-          baseUrl.pathname += 'ref=nosim';
+        baseUrl.pathname += '/ref=nosim';
       }
-      baseUrl.search = parameters.toString();
+      baseUrl.searchParams.delete('ref')
+      baseUrl.searchParams.set('tag', affiliateId)
       return baseUrl.href;
   } else {
       return url;
