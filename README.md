@@ -2,7 +2,7 @@
 ![License](https://img.shields.io/badge/license-MIT-purple.svg )
 ![Chrome Version](https://img.shields.io/badge/chrome->=76-purple.svg)
 
-This Chrome extension inserts referral links when visiting Amazon or AliExpress.<br/><br/>
+This Chrome extension inserts referral links when visiting Amazon.<br/><br/>
 
 ### 🛠 Installation
 To install the extension:

@@ -15,33 +15,7 @@ const websitesData = [
 	{hostSuffix: 'amazon.com.br'},
 	{hostSuffix: 'amazon.com.mx'},
 	{hostSuffix: 'amazon.com.au'},
-	{hostSuffix: 'amazon.com.tr'},
-	{hostSuffix: 'de.aliexpress.com'},
-	{hostSuffix: 'aliexpress.com'},
-	{hostSuffix: 'ru.aliexpress.com'},
-	{hostSuffix: 'pt.aliexpress.com'},
-	{hostSuffix: 'es.aliexpress.com'},
-	{hostSuffix: 'fr.aliexpress.com'},
-	{hostSuffix: 'it.aliexpress.com'},
-	{hostSuffix: 'nl.aliexpress.com'},
-	{hostSuffix: 'ar.aliexpress.com'},
-	{hostSuffix: 'th.aliexpress.com'},
-	{hostSuffix: 'vi.aliexpress.com'},
-	{hostSuffix: 'id.aliexpress.com'},
-	{hostSuffix: 'tr.aliexpress.com'},
-	{hostSuffix: 'ko.aliexpress.com'},
-	{hostSuffix: 'ja.aliexpress.com'},
-	{hostSuffix: 'pl.aliexpress.com'},
-	{hostSuffix: 'he.aliexpress.com'},
-	{hostSuffix: 'no.aliexpress.com'},
-	{hostSuffix: 'sv.aliexpress.com'},
-	{hostSuffix: 'da.aliexpress.com'},
-	{hostSuffix: 'fi.aliexpress.com'},
-	{hostSuffix: 'cs.aliexpress.com'},
-	{hostSuffix: 'hu.aliexpress.com'},
-	{hostSuffix: 'el.aliexpress.com'},
-	{hostSuffix: 'ro.aliexpress.com'},
-	{hostSuffix: 'uk.aliexpress.com'}
+	{hostSuffix: 'amazon.com.tr'}
 ];
 
 async function handleNavigation(details) {
@@ -53,7 +27,7 @@ async function handleNavigation(details) {
 
 	if (websites.find(item => item === currentWebsite?.host) && !currentWebsite.href.includes('/ap/signin')) {
 		console.log('Generating affiliate URL...');
-		const websiteKey = currentWebsite.href.includes('amazon') ? 'amazon' : (currentWebsite.href.includes('aliexpress') ? 'aliexpress' : '');
+		const websiteKey = currentWebsite.href.includes('amazon') ? 'amazon' : '';
 		let affiliateId = null;
 
 		try {
@@ -94,9 +68,6 @@ function generateAffiliateLink(url, affiliateId, websiteKey) {
 
 	if (websiteKey === 'amazon') {
 		modifiedURL = generateAmazonAffiliateLink(modifiedURL, affiliateId);
-	} else if (websiteKey === 'aliexpress') {
-    removeAffiliateParameters(url);
-		modifiedURL = generateAliExpressAffiliateLink(modifiedURL, affiliateId);
 	}
 
 	return modifiedURL;
@@ -125,14 +96,6 @@ function generateAmazonAffiliateLink(url, affiliateId) {
   } else {
       return url;
   }
-}
-
-function generateAliExpressAffiliateLink(url, affiliateId) {
-	const baseUrl = new URL(url);
-	const parameters = new URLSearchParams(baseUrl.search);
-	parameters.set('aff_id', affiliateId);
-	baseUrl.search = parameters.toString();
-	return baseUrl.href;
 }
 
 function redirectUser(tabId, url) {
