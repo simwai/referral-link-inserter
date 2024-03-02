@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "Amazon Affiliate Tag Injector",
-  "version": "1.7",
+  "version": "1.8",
   "description": "Injects your Amazon affiliate tag into the URL.",
   "permissions": [
     "storage",
