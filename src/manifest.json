@@ -34,12 +34,10 @@
     "*://amazon.sg/*",
     "*://amazon.sa/*",
     "*://amazon.co.jp/*",
-    "*://buy.geni.us/*""*://amazon.co.jp/*",
     "*://buy.geni.us/*"
   ],
   "background": {
     "service_worker": "background.js",
-    "type": "module""service_worker": "background.js",
     "type": "module"
   },
   "options_ui": {
