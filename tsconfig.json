@@ -1,0 +1,8 @@
+{
+  "extends": "@sindresorhus/tsconfig",
+  "compilerOptions": {
+    "module": "Node16",
+    "outDir": "dist",
+    "sourceMap": true
+  }
+}
