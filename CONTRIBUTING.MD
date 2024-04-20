@@ -6,7 +6,6 @@ Hello! We're thrilled that you're interested in contributing to the Referral Lin
 
 - [🚀 Contributing to Referral Link Inserter](#-contributing-to-referral-link-inserter)
   - [📜 Table of Contents](#-table-of-contents)
-  - [📜 Code of Conduct](#-code-of-conduct)
   - [🏁 Getting Started](#-getting-started)
   - [🛠️ Development Workflow](#️-development-workflow)
     - [Building the Project](#building-the-project)
@@ -17,10 +16,6 @@ Hello! We're thrilled that you're interested in contributing to the Referral Lin
   - [🐛 Reporting Bugs](#-reporting-bugs)
   - [💡 Feature Requests](#-feature-requests)
   - [❓ Questions](#-questions)
-
-## 📜 Code of Conduct
-
-This project and everyone participating in it is governed by the [Referral Link Inserter Code of Conduct](CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code. Please report unacceptable behavior to [project-email@example.com].
 
 ## 🏁 Getting Started
 
@@ -36,9 +31,9 @@ Before you begin, please ensure you have a GitHub account and have familiarized 
 
 To build the project, run the following command in your terminal:
 
-\```
+```bash
 npm run build
-\```
+```
 
 This script compiles TypeScript files and copies HTML, JSON, and PNG files from the `src` directory to the `dist` directory.
 
@@ -46,9 +41,9 @@ This script compiles TypeScript files and copies HTML, JSON, and PNG files from 
 
 We use AVA for testing. To run tests, execute:
 
-\```
+```bash
 npm test
-\```
+```
 
 This will run all test files located in `./src/tests/` with TypeScript support.
 
@@ -56,9 +51,9 @@ This will run all test files located in `./src/tests/` with TypeScript support.
 
 To ensure code quality and consistency, run the linter:
 
-\```
+```bash
 npm run lint
-\```
+```
 
 This uses XO to enforce a consistent code style.
 
@@ -66,9 +61,9 @@ This uses XO to enforce a consistent code style.
 
 To automatically format your code, you can run:
 
-\```
+```bash
 npm run format
-\```
+```
 
 This command will fix linting errors and format the code according to the defined rules in XO configuration.
 
