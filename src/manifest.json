@@ -1,19 +1,24 @@
 {
   "manifest_version": 3,
   "name": "Amazon Affiliate Tag Injector",
-  "version": "1.8",
+  "version": "1.9",
   "description": "Injects your Amazon affiliate tag into the URL.",
   "permissions": [
     "storage",
     "scripting",
-    "webNavigation"
+    "webNavigation",
+    "tabs"
   ],
   "icons": {
-    "16": "favicon-16x16.png",
-    "32": "favicon-32x32.png",
-    "64": "favicon-64x64.png",
-    "128": "favicon-128x128.png",
-    "256": "favicon-256x256.png"
+    "16": "favicons/favicon-16x16.png",
+    "32": "favicons/favicon-32x32.png",
+    "64": "favicons/favicon-64x64.png",
+    "128": "favicons/favicon-128x128.png",
+    "256": "favicons/favicon-256x256.png""16": "favicons/favicon-16x16.png",
+    "32": "favicons/favicon-32x32.png",
+    "64": "favicons/favicon-64x64.png",
+    "128": "favicons/favicon-128x128.png",
+    "256": "favicons/favicon-256x256.png"
   },
   "host_permissions": [
     "*://amazon.de/*",
@@ -32,10 +37,14 @@
     "*://amazon.ae/*",
     "*://amazon.sg/*",
     "*://amazon.sa/*",
-    "*://amazon.co.jp/*"
+    "*://amazon.co.jp/*",
+    "*://buy.geni.us/*""*://amazon.co.jp/*",
+    "*://buy.geni.us/*"
   ],
   "background": {
-    "service_worker": "background.js"
+    "service_worker": "background.js",
+    "type": "module""service_worker": "background.js",
+    "type": "module"
   },
   "options_ui": {
     "page": "options.html",
