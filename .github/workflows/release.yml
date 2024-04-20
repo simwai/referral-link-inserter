@@ -19,8 +19,11 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
+      - name: Build dist
+        run: npm run-script build
+
       - name: Create Release ZIP
-        run: npm run release
+        run: npm run-script release
 
       - name: Create Release
         uses: softprops/action-gh-release@v1
