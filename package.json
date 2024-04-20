@@ -1,7 +1,7 @@
 {
   "name": "referral-link-inserter",
   "license": "MIT",
-  "version": "1.8.0",
+  "version": "1.9.0",
   "repository": {
     "url": "git+https://github.com/simwai/referral-link-inserter.git"
   },
@@ -19,7 +19,7 @@
   },
   "type": "module",
   "scripts": {
-    "release": "bestzip dist ../referral-link-inserter.zip && npm publish",
+    "release": "bestzip referral-link-inserter.zip dist && tsx increment-version.ts",
     "build": "tsc && copyfiles -u 1 \"src/**/*.{html,json,png}\" dist",
     "test": "ava",
     "lint": "xo --fix",

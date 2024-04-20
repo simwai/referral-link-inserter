@@ -14,10 +14,6 @@
     "32": "favicons/favicon-32x32.png",
     "64": "favicons/favicon-64x64.png",
     "128": "favicons/favicon-128x128.png",
-    "256": "favicons/favicon-256x256.png""16": "favicons/favicon-16x16.png",
-    "32": "favicons/favicon-32x32.png",
-    "64": "favicons/favicon-64x64.png",
-    "128": "favicons/favicon-128x128.png",
     "256": "favicons/favicon-256x256.png"
   },
   "host_permissions": [
@@ -38,12 +34,10 @@
     "*://amazon.sg/*",
     "*://amazon.sa/*",
     "*://amazon.co.jp/*",
-    "*://buy.geni.us/*""*://amazon.co.jp/*",
     "*://buy.geni.us/*"
   ],
   "background": {
     "service_worker": "background.js",
-    "type": "module""service_worker": "background.js",
     "type": "module"
   },
   "options_ui": {
