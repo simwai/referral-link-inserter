@@ -1,8 +1,9 @@
 {
   "name": "referral-link-inserter",
   "license": "MIT",
+  "version": "1.8.0",
   "repository": {
-    "url": "https://github.com/simwai/referral-link-inserter"
+    "url": "git+https://github.com/simwai/referral-link-inserter.git"
   },
   "devDependencies": {
     "@ava/typescript": "^4.1.0",
