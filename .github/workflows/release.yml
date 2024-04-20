@@ -30,6 +30,9 @@ jobs:
 
       - name: Create Release ZIP
         run: npm run-script release
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
+
 
       - name: Create Release
         uses: softprops/action-gh-release@v1
