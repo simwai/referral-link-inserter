@@ -20,6 +20,7 @@
   "type": "module",
   "scripts": {
     "release": "bestzip referral-link-inserter.zip dist && tsx increment-version.ts",
+    "zip": "bestzip referral-link-inserter.zip dist",
     "build": "tsc && copyfiles -u 1 \"src/**/*.{html,json,png}\" dist",
     "test": "ava",
     "lint": "xo --fix",

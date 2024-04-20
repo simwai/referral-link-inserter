@@ -4,5 +4,11 @@
     "module": "Node16",
     "outDir": "dist",
     "sourceMap": true
-  }
+  },
+  "include": [
+    "./src/**/*"
+  ],
+  "exclude": [
+    "./increment-version.ts"
+  ]
 }
