@@ -1,6 +1,5 @@
 {
   "name": "referral-link-inserter",
-  "version": "1.0.0",
   "license": "MIT",
   "repository": {
     "url": "https://github.com/simwai/referral-link-inserter"
@@ -11,14 +10,16 @@
     "@types/chrome": "^0.0.266",
     "@types/sinon": "^17.0.3",
     "ava": "^6.1.2",
-    "cpx": "^1.5.0",
+    "bestzip": "^2.2.1",
+    "copyfiles": "^2.4.1",
     "sinon": "^17.0.1",
     "tsx": "^4.7.2",
     "xo": "^0.58.0"
   },
   "type": "module",
   "scripts": {
-    "build": "tsc && cpx \"src/**/*.{html,json,png}\" dist",
+    "release": "bestzip dist ../referral-link-inserter.zip && npm publish",
+    "build": "tsc && copyfiles -u 1 \"src/**/*.{html,json,png}\" dist",
     "test": "ava",
     "lint": "xo --fix",
     "format": "xo --fix --prettier"

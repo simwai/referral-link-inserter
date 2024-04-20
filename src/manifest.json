@@ -1,9 +1,14 @@
 {
   "manifest_version": 3,
   "name": "Amazon Affiliate Tag Injector",
-  "version": "1.8",
+  "version": "1.9",
   "description": "Injects your Amazon affiliate tag into the URL.",
-  "permissions": ["storage", "scripting", "webNavigation", "tabs"],
+  "permissions": [
+    "storage",
+    "scripting",
+    "webNavigation",
+    "tabs"
+  ],
   "icons": {
     "16": "favicons/favicon-16x16.png",
     "32": "favicons/favicon-32x32.png",
