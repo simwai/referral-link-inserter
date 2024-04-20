@@ -24,6 +24,6 @@ jobs:
       - name: Create Release
         uses: softprops/action-gh-release@v1
         with:
-          files: ../referral-link-inserter.zip
+          files: referral-link-inserter.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
