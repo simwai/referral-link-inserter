@@ -1,0 +1,73 @@
+{
+  "name": "referral-link-inserter",
+  "version": "1.0.0",
+  "license": "MIT",
+  "repository": {
+    "url": "https://github.com/simwai/referral-link-inserter"
+  },
+  "devDependencies": {
+    "@ava/typescript": "^4.1.0",
+    "@sindresorhus/tsconfig": "^5.0.0",
+    "@types/chrome": "^0.0.266",
+    "@types/sinon": "^17.0.3",
+    "ava": "^6.1.2",
+    "cpx": "^1.5.0",
+    "sinon": "^17.0.1",
+    "tsx": "^4.7.2",
+    "xo": "^0.58.0"
+  },
+  "type": "module",
+  "scripts": {
+    "build": "tsc && cpx \"src/**/*.{html,json,png}\" dist",
+    "test": "ava",
+    "lint": "xo --fix",
+    "format": "xo --fix --prettier"
+  },
+  "ava": {
+    "failFast": true,
+    "failWithoutAssertions": false,
+    "verbose": true,
+    "files": [
+      "./src/tests/*.test.ts"
+    ],
+    "typescript": {
+      "rewritePaths": {
+        "src/": "dist/"
+      },
+      "compile": "tsc"
+    },
+    "concurrency": 3
+  },
+  "xo": {
+    "envs": [
+      "es2022",
+      "browser"
+    ],
+    "space": true,
+    "semicolon": false,
+    "prettier": true,
+    "ignore": "./dist, ./node_modules",
+    "endOfLine": "lf",
+    "extensions": [
+      ".ts"
+    ],
+    "files": [
+      "./src/**/*.ts"
+    ],
+    "rules": {
+      "no-await-in-loop": "off",
+      "unicorn/numeric-separators-style": "off",
+      "unicorn/prefer-module": "off",
+      "@typescript-eslint/no-unsafe-assignment": "off",
+      "@typescript-eslint/naming-convention": "off",
+      "@typescript-eslint/parameter-properties": "off",
+      "@typescript-eslint/explicit-member-accessibility": [
+        "error"
+      ],
+      "@typescript-eslint/prefer-promise-reject-errors": "off",
+      "@typescript-eslint/no-unsafe-call": "off",
+      "unicorn/prefer-array-some": "off",
+      "@typescript-eslint/no-unsafe-argument": "off"
+    }
+  }
+}
