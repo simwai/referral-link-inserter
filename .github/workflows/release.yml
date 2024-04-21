@@ -39,6 +39,8 @@ jobs:
         run: npm run-script zip
 
       - name: Semantic Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN }}
         run: npx semantic-release
 
       - name: Create Release
