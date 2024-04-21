@@ -22,20 +22,27 @@ jobs:
           git remote set-url origin https://x-access-token:${{ secrets.TOKEN }}@github.com/simwai/referral-link-inserter.git
 
       - name: Set up Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
           node-version: '20.12.2'
 
       - name: Install Dependencies
-        run: npm install
+        run: npm ci
+
+      - name: Run Tests
+        run: npm test
 
       - name: Build dist
         run: npm run-script build
 
       - name: Create Release ZIP
-        run: npm run-script release
+        run: npm run-script zip
+
+      - name: Semantic Release
+        run: npx semantic-release
 
       - name: Create Release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           files: referral-link-inserter.zip
+          token: {{ secrets.TOKEN }}
