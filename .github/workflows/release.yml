@@ -17,10 +17,6 @@ jobs:
           git config --global user.email "16225108+simwai@users.noreply.github.com"
           git config --global user.name "simwai"
 
-      - name: Set up Git to use PAT
-        run: |
-          git remote set-url origin https://x-access-token:${{ secrets.TOKEN }}@github.com/simwai/referral-link-inserter.git
-
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
