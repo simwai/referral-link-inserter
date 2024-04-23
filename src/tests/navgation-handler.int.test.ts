@@ -2,10 +2,15 @@
 
 import anyTest, {type TestFn} from 'ava'
 import sinon from 'sinon'
-import {NavigationHandler, websitesData} from '../background.js'
+import {NavigationHandler} from '../navigation-handler.js'
+import {websitesData} from '../background.js'
 import {type TestContext, type MockChrome} from './test-types.js'
 
-const test: TestFn<TestContext> = anyTest as unknown as TestFn<TestContext>
+type ExtendedTestContext = TestContext & {
+  navigationHandler: NavigationHandler
+}
+const test: TestFn<ExtendedTestContext> =
+  anyTest as unknown as TestFn<ExtendedTestContext>
 
 test.beforeEach((t) => {
   const mockAffiliateId = 'EXAMPLE'
@@ -29,9 +34,8 @@ test.beforeEach((t) => {
     },
   }
 
-  const testContext: TestContext = {
+  const testContext: ExtendedTestContext = {
     affiliateId: mockAffiliateId,
-    chrome: chromeMock,
     navigationHandler: new NavigationHandler(websitesData, chromeMock),
   }
   t.context = testContext
@@ -50,15 +54,15 @@ test('NavigationHandler modifies URL with affiliate ID on navigation for Amazon'
   const handler = t.context.navigationHandler
   sinon.stub(handler, 'generateAffiliateLink' as any).resolves(modifiedUrl)
 
-  // Simulate navigation
   await handler.handleNavigation({
     url: originalUrl,
     tabId: 1,
   })
 
-  // Check if chrome.tabs.update was called with modified URL
-  t.true(t.context.chrome.tabs.update.calledOnce)
-  const callArguments = t.context.chrome.tabs.update.firstCall.args
+  t.true(t.context.navigationHandler.chrome.tabs.update.calledOnce)
+
+  const callArguments =
+    t.context.navigationHandler.chrome.tabs.update.firstCall.args
   t.is(callArguments[0], 1)
   t.deepEqual(callArguments[1], {url: modifiedUrl})
 })
@@ -69,12 +73,10 @@ test('NavigationHandler does not modify URL when no affiliate ID is found', asyn
   const handler = t.context.navigationHandler
   sinon.stub(handler, 'generateAffiliateLink' as any).resolves(originalUrl)
 
-  // Simulate navigation
   await handler.handleNavigation({
     url: originalUrl,
     tabId: 1,
   })
 
-  // Check if chrome.tabs.update was not called
-  t.false(t.context.chrome.tabs.update.called)
+  t.false(t.context.navigationHandler.chrome.tabs.update.called)
 })
