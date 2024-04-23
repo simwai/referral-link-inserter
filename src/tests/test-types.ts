@@ -1,5 +1,3 @@
-import {type NavigationHandler} from '../background.js'
-
 export type MockChrome = {
   runtime: {
     id: string
@@ -17,6 +15,4 @@ export type MockChrome = {
 
 export type TestContext = {
   affiliateId: string
-  chrome: MockChrome
-  navigationHandler: NavigationHandler
 }
