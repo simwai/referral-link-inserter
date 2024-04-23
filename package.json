@@ -14,15 +14,16 @@
     "bestzip": "^2.2.1",
     "copyfiles": "^2.4.1",
     "husky": "^9.0.11",
+    "rimraf": "^5.0.5",
     "sinon": "^17.0.1",
     "tsx": "^4.7.2",
     "xo": "^0.58.0"
   },
   "type": "module",
   "scripts": {
-    "zip": "bestzip referral-link-inserter.zip dist",
-    "build": "tsc && copyfiles -u 1 \"src/**/*.{html,json,png}\" dist",
-    "test": "ava",
+    "zip": "bestzip referral-link-inserter.zip ./dist",
+    "build": "rimraf ./dist && tsc && rimraf ./dist/tests/ && copyfiles -u 1 \"./src/**/*.{html,json,png}\" ./dist",
+    "test": "rimraf ./dist && ava && rimraf ./dist/tests",
     "lint": "xo --fix",
     "format": "xo --fix --prettier"
   },
