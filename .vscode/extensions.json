@@ -3,6 +3,7 @@
     "bradlc.vscode-tailwindcss",
     "kamikillerto.vscode-colorize",
     "vivaxy.vscode-conventional-commits",
-    "samverschueren.linter-xo"
+    "samverschueren.linter-xo",
+    "aaravb.chrome-extension-developer-tools"
   ]
 }
