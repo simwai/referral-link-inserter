@@ -12,17 +12,15 @@ https://chrome.google.com/webstore/detail/referral-link-inserter/obaecligagaohla
 
 Alternatively, you can:
 
-- Download the source code or clone the repo
+- Download the latest relase
+- Unzip the zip folder `referral-link-inserter.zip`.
 - Navigate to `chrome://extensions` in your browser
-- Enable "Developer mode"
-- Click "Load unpacked" and select the extension directory
+- Click "Load unpacked extension" and select the unzipped folder
 
-### 💰 Usage
+### 💰 Features
 
-1. Add your referral IDs for each site in the settings
-2. Visit product pages on Amazon
-3. 💡 The extension will automatically insert your affiliate ID
-   You'll start earning commissions on your referrals.
+The extension will automatically insert your affiliate ID into Amazon search and product pages.<br>
+You'll start earning commissions on your referrals.
 
 ### ⚙️ Configuration
 
@@ -31,6 +29,7 @@ The extension options page allows you to configure your affiliate IDs for each s
 To open the options page:
 
 - Right-click on the extension icon and select "Options"
+  
   or
 
 - Navigate to `chrome://extensions` and click "Options"
