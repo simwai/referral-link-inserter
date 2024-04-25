@@ -21,9 +21,9 @@
   },
   "type": "module",
   "scripts": {
-    "zip": "bestzip referral-link-inserter.zip ./dist",
-    "build": "rimraf ./dist && tsc && rimraf ./dist/tests/ && copyfiles -u 1 \"./src/**/*.{html,json,png}\" ./dist",
-    "test": "rimraf ./dist && ava && rimraf ./dist/tests",
+    "zip": "rimraf referral-link-inserter.zip && bestzip referral-link-inserter.zip dist",
+    "build": "rimraf dist && tsc && rimraf dist/tests/ && copyfiles -u 1 \"src/**/*.{html,json,png}\" dist",
+    "test": "rimraf dist && ava && rimraf dist/tests",
     "lint": "xo --fix",
     "format": "xo --fix --prettier"
   },
